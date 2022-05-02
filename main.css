@@ -1,0 +1,37 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  background: url("background.jpg") no-repeat;
+  background-size: cover;
+
+  display: grid;
+  grid-gap: 2em;
+  justify-items: center;
+}
+
+#text {
+  font-size: 4em;
+  align-self: end;
+  text-align: center;
+  white-space: pre;
+
+  background-color: aliceblue;
+  color: midnightblue;
+  border: 2px solid midnightblue;
+  border-radius: 5px;
+  padding-left: 0.1em;
+  padding-right: 0.1em;
+}
+
+#input {
+  text-align: center;
+  font-size: 2em;
+  align-self: start;
+
+  color: cornflowerblue;
+  border: 2px solid cornflowerblue;
+  border-radius: 5px;
+  background-color: aliceblue;
+  outline: none;
+}
