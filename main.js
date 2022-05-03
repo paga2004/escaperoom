@@ -1,3 +1,5 @@
+// DON'T LOOK AT THE CODE
+
 let text, input, btn, idx, color;
 
 function video() {
@@ -41,7 +43,7 @@ let riddles = [
   },
   {
     text: "Filzstiftschublade",
-    checker: generate_checker(["xxx"]),
+    checker: generate_checker(["16", "17", "18", "16ml", "17ml", "18ml"]),
   },
   {
     text: "Welche Farbe hat die Lösung in der Soxhletapparatur?",
