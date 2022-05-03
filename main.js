@@ -1,5 +1,23 @@
 // DON'T LOOK AT THE CODE
 
+const hash = function (str, seed = 0) {
+  str = str.toString();
+  let h1 = 0xdeadbeef ^ seed,
+    h2 = 0x41c6ce57 ^ seed;
+  for (let i = 0, ch; i < str.length; i++) {
+    ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 =
+    Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^
+    Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 =
+    Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^
+    Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+};
+
 let text, input, btn, idx, color;
 
 function video() {
@@ -9,8 +27,7 @@ function video() {
   video.requestFullscreen();
   video.play();
   video.onended = function () {
-    console.log(1);
-    document.location = "?1";
+    document.location = "?" + hash(1);
   };
 }
 
@@ -19,7 +36,7 @@ function generate_checker(secret) {
   return () => {
     if (secret.includes(input.value.replace(/\s/g, ""))) {
       console.log("success");
-      window.location = "?" + (idx + 1);
+      window.location = "?" + hash(idx + 1);
     } else {
       console.log("failed");
       input.style.color = "red";
@@ -53,6 +70,10 @@ let riddles = [
     text: "537",
     checker: generate_checker([]),
   },
+  {
+    text: "nope",
+    checker: generate_checker([]),
+  },
 ];
 
 window.onload = function () {
@@ -60,11 +81,18 @@ window.onload = function () {
   input = document.getElementById("input");
 
   let url = new URL(window.location);
-  idx = parseInt(url.search.substr(1));
-  console.log("idx:", idx);
-  if (isNaN(idx)) {
-    document.location = "?0";
+  h = url.search.substr(1);
+  if (h === "") idx = 0;
+  else {
+    idx = riddles.length - 1;
+    for (let i = 0; i < riddles.length; i++) {
+      if (hash(i) == h) {
+        idx = i;
+        break;
+      }
+    }
   }
+  console.log("idx:", idx);
 
   color = input.style.color;
   input.oninput = () => {
@@ -80,6 +108,5 @@ window.onload = function () {
     }
   };
 
-  input.onblur = () => setTimeout(() => input.focus());
   input.focus();
 };
