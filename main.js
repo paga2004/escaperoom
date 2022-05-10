@@ -52,7 +52,12 @@ let riddles = [
   },
   {
     text: "Summenformel",
-    checker: generate_checker(["Cl + H3O", "Cl- + H3O+"]),
+    checker: generate_checker([
+      "Cl + H3O",
+      "Cl- + H3O+",
+      "H3O + Cl",
+      "H3O+ + Cl-",
+    ]),
   },
   {
     text: "444",
