@@ -75,10 +75,6 @@ let riddles = [
     text: "537",
     checker: generate_checker([]),
   },
-  {
-    text: "nope",
-    checker: generate_checker([]),
-  },
 ];
 
 window.onload = function () {
@@ -89,7 +85,7 @@ window.onload = function () {
   h = url.search.substr(1);
   if (h === "") idx = 0;
   else {
-    idx = riddles.length - 1;
+    idx = -1;
     for (let i = 0; i < riddles.length; i++) {
       if (hash(i) == h) {
         idx = i;
@@ -97,6 +93,7 @@ window.onload = function () {
       }
     }
   }
+  if (idx == -1) history.back();
   console.log("idx:", idx);
 
   color = input.style.color;
